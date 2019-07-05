@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import { buildURL, fetch2 } from '../utils';
@@ -61,10 +61,11 @@ class OauthReceiver extends React.Component {
       const defaultFetchArgs = { method: 'POST', headers };
       const fetchArgs = Object.assign(defaultFetchArgs, tokenFetchArgs);
 
-      (typeof tokenFn === 'function' ?
-        tokenFn(url, fetchArgs) :
-        fetch2(url, fetchArgs)
-      ).then(response => {
+      (typeof tokenFn === 'function'
+        ? tokenFn(url, fetchArgs)
+        : fetch2(url, fetchArgs)
+      )
+        .then(response => {
           const accessToken = response.access_token;
 
           if (typeof onAuthSuccess === 'function') {
